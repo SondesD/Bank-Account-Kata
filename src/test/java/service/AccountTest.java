@@ -23,10 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class AccountTest {
     private Account account;
 
-    private final PrintStream standardOut = System.out;
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-
-
     @BeforeEach
     void setUp() {
         account = new Account(
@@ -53,7 +49,7 @@ class AccountTest {
     @DisplayName("When a withdrawal is made, the balance should decrease accordingly")
     @ParameterizedTest
     @ValueSource(ints = { 1, 10, 50, 200 })
-    void withdrawalTest(int inputAmount) {
+    void when_withdrawal_then_balance_should_be_decrease(int inputAmount) {
         BigDecimal amount = BigDecimal.valueOf(inputAmount).setScale(2, RoundingMode.HALF_EVEN);
         account.deposit(amount);
         assertEquals(amount, account.getBalance());

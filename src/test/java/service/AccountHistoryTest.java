@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AccountHistoryTest {
@@ -35,13 +35,13 @@ class AccountHistoryTest {
 
         transactions.forEach(t -> accountHistory.addTransaction(t));
 
-        assertThat(accountHistory.getTransactions()).isEqualTo(transactions);
+        assertEquals(transactions, accountHistory.getTransactions());
     }
 
 
     @DisplayName("Overdraft is not allowed")
     @Test
-    void given_insufficientFunds_then_addTransaction_should_throws_overdraftException() {
+    void when_insufficientFunds_then_addTransaction_should_throws_overdraftException() {
         List<Transaction> transactions = List.of(
                 Transaction.build(BigDecimal.TEN, TransactionType.DEPOSIT, LocalDateTime.now()),
                 Transaction.build(BigDecimal.ONE, TransactionType.WITHDRAWAL, LocalDateTime.now()),
